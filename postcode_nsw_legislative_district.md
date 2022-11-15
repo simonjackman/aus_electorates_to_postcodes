@@ -95,9 +95,7 @@ nsw_geo <- st_as_sf(nsw_geo,
 :::
 
 
-We subset this file to NSW addresses, yielding 4,772,933 addresses, spanning 622 postcodes and 2,894,120 distinct geo-codes (latitude/longitude pairs).
-
-We now compute the enclosing NSW state legislative district for each address.
+We subset the G-NAF "core" file to NSW addresses, yielding 4,772,933 addresses, spanning 622 postcodes and 2,894,120 distinct geo-codes (latitude/longitude pairs).
 
 # NSW state legislative districts
 
@@ -271,7 +269,7 @@ ojs_define(out_raw=out)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="228" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="226" source-offset="-0"}
 out = transpose(out_raw)
 viewof theDistrict = Inputs.select(out.map(d => d.district),
     {
@@ -313,7 +311,7 @@ out_small = out.filter(d => d.district == theDistrict)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="239" source-offset="0"}
+```{.js .cell-code code-fold="undefined" startFrom="237" source-offset="0"}
 Inputs.table(
   out_small,
   {
@@ -379,7 +377,7 @@ Inputs.table(
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="296" source-offset="0"}
+```{.js .cell-code code-fold="undefined" startFrom="294" source-offset="0"}
 nsw_shp_json = await FileAttachment("nsw_shp.json").json()
 ```
 
@@ -392,7 +390,7 @@ nsw_shp_json = await FileAttachment("nsw_shp.json").json()
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="301" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="299" source-offset="-0"}
 width = 800
 height = 1000
 poa_shp_json = FileAttachment("nsw_poa_shp.json").json()
@@ -439,7 +437,7 @@ thePostcodes = out_small.map(d => d.postcode)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="309" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="307" source-offset="-0"}
 lat_default = -33.8727778
 long_default = 151.2258333
 L = require('leaflet@1.9.2')
@@ -449,7 +447,7 @@ map2 = {
   yield container;
   
   let map = L.map(container)
-  let osmLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
+  let osmLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
       attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   subdomains: 'abcd',
 	minZoom: 0,

@@ -70,7 +70,7 @@ For making maps, we use the (very good) approximations to [postcode geographies]
 
 # Methodology
 
--   Every GNAF address in NSW is geocoded using [GDA94](https://epsg.io/4939) or [GDA 2020 CRS](https://epsg.io/7844).
+-   Every G-NAF address in NSW is geocoded using [GDA94](https://epsg.io/4939) or [GDA 2020 CRS](https://epsg.io/7844), the same CRS used for both the NSW legislative district `MapInfo` file and ABS postal area shape files.
 -   Locate each geo-coded NSW address from G-NAF in a NSW legislative district, using functions in the [`sf` R package](https://journal.r-project.org/archive/2018/RJ-2018-009/RJ-2018-009.pdf).
 -   For each postcode, compute and report count and what proportion of its geo-coded addresses lie in each district.
 -   Use [`leaflet`](https://leafletjs.com "https://leafletjs.com") to build a JS mapping/visualization application.
@@ -101,9 +101,7 @@ nsw_geo <- st_as_sf(nsw_geo,
                     )
 ```
 
-We subset this file to NSW addresses, yielding `r format(nrow(nsw_addresses),big.mark=",")` addresses, spanning `r format(nsw_addresses %>% distinct(postcode) %>% nrow(),big.mark=",")` postcodes and `r format(nsw_geo %>% nrow(),big.mark=",")` distinct geo-codes (latitude/longitude pairs).
-
-We now compute the enclosing NSW state legislative district for each address.
+We subset the G-NAF "core" file to NSW addresses, yielding `r format(nrow(nsw_addresses),big.mark=",")` addresses, spanning `r format(nsw_addresses %>% distinct(postcode) %>% nrow(),big.mark=",")` postcodes and `r format(nsw_geo %>% nrow(),big.mark=",")` distinct geo-codes (latitude/longitude pairs).
 
 # NSW state legislative districts
 
@@ -299,7 +297,7 @@ nsw_shp_json = await FileAttachment("nsw_shp.json").json()
 
 ```{ojs}
 width = 800
-height = 1000
+height = 650
 poa_shp_json = FileAttachment("nsw_poa_shp.json").json()
 
 thePostcodes = out_small.map(d => d.postcode)
