@@ -414,8 +414,6 @@ thePostcodes = out_small.map(d => d.postcode)
 :::{.cell}
 
 ```{.js .cell-code code-fold="undefined" startFrom="308" source-offset="-0"}
-lat_default = -33.8727778
-long_default = 151.2258333
 L = require('leaflet@1.9.2')
 
 map2 = {
@@ -520,24 +518,6 @@ map2 = {
 :::{}
 
 :::{#ojs-cell-5-2 nodetype="declaration"}
-:::
-:::
-:::
-
-:::{.cell-output .cell-output-display}
-
-:::{}
-
-:::{#ojs-cell-5-3 nodetype="declaration"}
-:::
-:::
-:::
-
-:::{.cell-output .cell-output-display}
-
-:::{}
-
-:::{#ojs-cell-5-4 nodetype="declaration"}
 :::
 :::
 :::

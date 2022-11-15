@@ -305,8 +305,6 @@ thePostcodes = out_small.map(d => d.postcode)
 ```
 
 ```{ojs}
-lat_default = -33.8727778
-long_default = 151.2258333
 L = require('leaflet@1.9.2')
 
 map2 = {
