@@ -46,3 +46,6 @@ vignettes/*.pdf
 data/POA*
 data/gnaf_subset.fst
 /.quarto/
+
+## top level site_libs
+site_libs
