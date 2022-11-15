@@ -306,6 +306,15 @@ Inputs.table(
 :::
 :::
 :::
+
+
+
+<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+     integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+     crossorigin=""></script>
+
+
+
 ```{=html}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
      integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
@@ -353,7 +362,7 @@ Inputs.table(
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="295" source-offset="0"}
+```{.js .cell-code code-fold="undefined" startFrom="299" source-offset="0"}
 nsw_shp_json = await FileAttachment("data/nsw_shp.json").json()
 ```
 
@@ -366,7 +375,7 @@ nsw_shp_json = await FileAttachment("data/nsw_shp.json").json()
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="300" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="304" source-offset="-0"}
 width = 800
 height = 650
 poa_shp_json = FileAttachment("data/nsw_poa_shp.json").json()
@@ -413,7 +422,7 @@ thePostcodes = out_small.map(d => d.postcode)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="308" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="312" source-offset="-0"}
 L = require('leaflet@1.9.2')
 
 map2 = {
