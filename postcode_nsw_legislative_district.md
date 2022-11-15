@@ -62,7 +62,8 @@ For making maps, we use the (very good) approximations to [postcode geographies]
 -   Every GNAF address in NSW is geocoded using [GDA94](https://epsg.io/4939) or [GDA 2020 CRS](https://epsg.io/7844).
 -   Locate each geo-coded NSW address from G-NAF in a NSW legislative district, using functions in the [`sf` R package](https://journal.r-project.org/archive/2018/RJ-2018-009/RJ-2018-009.pdf).
 -   For each postcode, compute and report count and what proportion of its geo-coded addresses lie in each district.
--   Use [`leaflet`](https://leafletjs.com "https://leafletjs.com") to build a mapping/visualization application.
+-   Use [`leaflet`](https://leafletjs.com "https://leafletjs.com") to build a JS mapping/visualization application.
+- [`quarto`](https://quarto.org) assembles this document and the web application, in turn utilising [`Observable JS`](https://observablehq.com/@observablehq/observables-not-javascript) for table building and the call to `leaflet` (@sec-interactive). 
 
 # Read G-NAF
 
@@ -263,14 +264,14 @@ ojs_define(out_raw=out)
 :::
 
 
-# Linked table and map
+# Linked table and map {#sec-interactive}
 
 
 
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="227" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="228" source-offset="-0"}
 out = transpose(out_raw)
 viewof theDistrict = Inputs.select(out.map(d => d.district),
     {
@@ -312,7 +313,7 @@ out_small = out.filter(d => d.district == theDistrict)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="238" source-offset="0"}
+```{.js .cell-code code-fold="undefined" startFrom="239" source-offset="0"}
 Inputs.table(
   out_small,
   {
@@ -378,7 +379,7 @@ Inputs.table(
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="295" source-offset="0"}
+```{.js .cell-code code-fold="undefined" startFrom="296" source-offset="0"}
 nsw_shp_json = await FileAttachment("nsw_shp.json").json()
 ```
 
@@ -391,7 +392,7 @@ nsw_shp_json = await FileAttachment("nsw_shp.json").json()
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="300" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="301" source-offset="-0"}
 width = 800
 height = 1000
 poa_shp_json = FileAttachment("nsw_poa_shp.json").json()
@@ -438,7 +439,7 @@ thePostcodes = out_small.map(d => d.postcode)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="308" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="309" source-offset="-0"}
 lat_default = -33.8727778
 long_default = 151.2258333
 L = require('leaflet@1.9.2')
@@ -448,7 +449,7 @@ map2 = {
   yield container;
   
   let map = L.map(container)
-  let osmLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+  let osmLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
       attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   subdomains: 'abcd',
 	minZoom: 0,
@@ -576,6 +577,8 @@ map2 = {
 ::: {.cell}
 
 ```{.r .cell-code}
-write.csv(out, file = here("aux_data/nsw/district_postcode_counts.csv"))
+write.csv(out,
+          file = here("data/district_postcode_counts.csv"),
+          row.names = FALSE)
 ```
 :::

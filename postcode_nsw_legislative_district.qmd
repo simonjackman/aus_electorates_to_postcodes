@@ -74,7 +74,7 @@ For making maps, we use the (very good) approximations to [postcode geographies]
 -   Locate each geo-coded NSW address from G-NAF in a NSW legislative district, using functions in the [`sf` R package](https://journal.r-project.org/archive/2018/RJ-2018-009/RJ-2018-009.pdf).
 -   For each postcode, compute and report count and what proportion of its geo-coded addresses lie in each district.
 -   Use [`leaflet`](https://leafletjs.com "https://leafletjs.com") to build a JS mapping/visualization application.
-- [`quarto`](https://quarto.org) assembles this document and the web application, in turn utilising (`Observable JS`)[https://observablehq.com/@observablehq/observables-not-javascript] for table building and the call to `leaflet` (@sec-interactive). 
+- [`quarto`](https://quarto.org) assembles this document and the web application, in turn utilising [`Observable JS`](https://observablehq.com/@observablehq/observables-not-javascript) for table building and the call to `leaflet` (@sec-interactive). 
 
 # Read G-NAF
 
@@ -315,7 +315,7 @@ map2 = {
   yield container;
   
   let map = L.map(container)
-  let osmLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+  let osmLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
       attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   subdomains: 'abcd',
 	minZoom: 0,
@@ -401,6 +401,8 @@ map2 = {
 # Write to file
 
 ```{r}
-#| eval: false
-write.csv(out, file = here("aux_data/nsw/district_postcode_counts.csv"),row.names = FALSE)
+#| eval: true
+write.csv(out,
+          file = here("data/district_postcode_counts.csv"),
+          row.names = FALSE)
 ```
