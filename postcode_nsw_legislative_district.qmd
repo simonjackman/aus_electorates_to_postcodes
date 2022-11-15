@@ -110,6 +110,7 @@ We read the [MapInfo file](https://www.elections.nsw.gov.au/NSWEC/media/NSWEC/Ma
 ```{r}
 #| cache: false
 #| label: nsw-shp-read
+#| eval: false
 nsw_shp <-
   st_read(
     dsn = here("data/StateElectoralDistrict2021_GDA2020.MID"),
@@ -292,13 +293,13 @@ Inputs.table(
 </style>     
 ```
 ```{ojs}
-nsw_shp_json = await FileAttachment("nsw_shp.json").json()
+nsw_shp_json = await FileAttachment("data/nsw_shp.json").json()
 ```
 
 ```{ojs}
 width = 800
 height = 650
-poa_shp_json = FileAttachment("nsw_poa_shp.json").json()
+poa_shp_json = FileAttachment("data/nsw_poa_shp.json").json()
 
 thePostcodes = out_small.map(d => d.postcode)
 ```

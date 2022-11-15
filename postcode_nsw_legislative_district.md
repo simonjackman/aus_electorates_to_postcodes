@@ -59,7 +59,7 @@ For making maps, we use the (very good) approximations to [postcode geographies]
 
 # Methodology
 
--   Every GNAF address in NSW is geocoded using [GDA94](https://epsg.io/4939) or [GDA 2020 CRS](https://epsg.io/7844).
+-   Every G-NAF address in NSW is geocoded using [GDA94](https://epsg.io/4939) or [GDA 2020 CRS](https://epsg.io/7844), the same CRS used for both the NSW legislative district `MapInfo` file and ABS postal area shape files.
 -   Locate each geo-coded NSW address from G-NAF in a NSW legislative district, using functions in the [`sf` R package](https://journal.r-project.org/archive/2018/RJ-2018-009/RJ-2018-009.pdf).
 -   For each postcode, compute and report count and what proportion of its geo-coded addresses lie in each district.
 -   Use [`leaflet`](https://leafletjs.com "https://leafletjs.com") to build a JS mapping/visualization application.
@@ -112,34 +112,10 @@ nsw_shp <-
       "SELECT objectid, cadid, districtna from StateElectoralDistrict2021_GDA2020"
     )
   )
-```
-
-::: {.cell-output .cell-output-stdout}
-```
-Reading query `SELECT objectid, cadid, districtna from StateElectoralDistrict2021_GDA2020'
-from data source `/Users/jackman/Library/CloudStorage/GoogleDrive-simonjackman@icloud.com/Shared drives/C200 TEAM: ANALYTICS/HubSpot migration/aus_electorates_to_postcodes/data/StateElectoralDistrict2021_GDA2020.MID' 
-  using driver `MapInfo File'
-Simple feature collection with 93 features and 3 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: 8714579 ymin: 4024167 xmax: 10446780 ymax: 5045061
-Projected CRS: unnamed
-```
-:::
-
-```{.r .cell-code}
 nsw_shp <- st_transform(nsw_shp, crs = CRS("+init=EPSG:7843"))
 nsw_shp <- as(nsw_shp, "sf") %>% st_make_valid() 
 geojsonio::geojson_write(nsw_shp,file = here("data/nsw_shp.json"))
 ```
-
-::: {.cell-output .cell-output-stdout}
-```
-<geojson-file>
-  Path:       /Users/jackman/Library/CloudStorage/GoogleDrive-simonjackman@icloud.com/Shared drives/C200 TEAM: ANALYTICS/HubSpot migration/aus_electorates_to_postcodes/data/nsw_shp.json
-  From class: geo_list
-```
-:::
 :::
 
 
@@ -269,7 +245,7 @@ ojs_define(out_raw=out)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="226" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="227" source-offset="-0"}
 out = transpose(out_raw)
 viewof theDistrict = Inputs.select(out.map(d => d.district),
     {
@@ -311,7 +287,7 @@ out_small = out.filter(d => d.district == theDistrict)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="237" source-offset="0"}
+```{.js .cell-code code-fold="undefined" startFrom="238" source-offset="0"}
 Inputs.table(
   out_small,
   {
@@ -377,8 +353,8 @@ Inputs.table(
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="294" source-offset="0"}
-nsw_shp_json = await FileAttachment("nsw_shp.json").json()
+```{.js .cell-code code-fold="undefined" startFrom="295" source-offset="0"}
+nsw_shp_json = await FileAttachment("data/nsw_shp.json").json()
 ```
 
 :::{.cell-output .cell-output-display}
@@ -390,10 +366,10 @@ nsw_shp_json = await FileAttachment("nsw_shp.json").json()
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="299" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="300" source-offset="-0"}
 width = 800
-height = 1000
-poa_shp_json = FileAttachment("nsw_poa_shp.json").json()
+height = 650
+poa_shp_json = FileAttachment("data/nsw_poa_shp.json").json()
 
 thePostcodes = out_small.map(d => d.postcode)
 ```
@@ -437,7 +413,7 @@ thePostcodes = out_small.map(d => d.postcode)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="307" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="308" source-offset="-0"}
 lat_default = -33.8727778
 long_default = 151.2258333
 L = require('leaflet@1.9.2')
@@ -447,7 +423,7 @@ map2 = {
   yield container;
   
   let map = L.map(container)
-  let osmLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+  let osmLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
       attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   subdomains: 'abcd',
 	minZoom: 0,
