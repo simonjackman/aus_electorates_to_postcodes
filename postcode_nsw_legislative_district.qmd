@@ -24,7 +24,7 @@ format:
     embed-resources: true
     standalone: true
     include-in-header: 
-      file: js/leaflet_load.js
+      file: "js/external_load.js"
     output-file: index.html
 tbl-cap-location: bottom    
 crossref:
