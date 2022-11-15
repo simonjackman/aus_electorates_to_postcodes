@@ -23,6 +23,7 @@ format:
     page-layout: full
     embed-resources: true
     standalone: true
+    output-file: index.html
 tbl-cap-location: bottom    
 crossref:
   tbl-title: Table

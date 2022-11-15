@@ -23,6 +23,7 @@ format:
     page-layout: full
     embed-resources: true
     standalone: true
+    output-file: index.html
 tbl-cap-location: bottom    
 crossref:
   tbl-title: Table
@@ -245,7 +246,7 @@ ojs_define(out_raw=out)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="227" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="228" source-offset="-0"}
 out = transpose(out_raw)
 viewof theDistrict = Inputs.select(out.map(d => d.district),
     {
@@ -287,7 +288,7 @@ out_small = out.filter(d => d.district == theDistrict)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="238" source-offset="0"}
+```{.js .cell-code code-fold="undefined" startFrom="239" source-offset="0"}
 Inputs.table(
   out_small,
   {
@@ -362,7 +363,7 @@ Inputs.table(
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="299" source-offset="0"}
+```{.js .cell-code code-fold="undefined" startFrom="300" source-offset="0"}
 nsw_shp_json = await FileAttachment("data/nsw_shp.json").json()
 ```
 
@@ -375,7 +376,7 @@ nsw_shp_json = await FileAttachment("data/nsw_shp.json").json()
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="304" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="305" source-offset="-0"}
 width = 800
 height = 650
 poa_shp_json = FileAttachment("data/nsw_poa_shp.json").json()
@@ -422,7 +423,7 @@ thePostcodes = out_small.map(d => d.postcode)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="312" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="313" source-offset="-0"}
 L = require('leaflet@1.9.2')
 
 map2 = {
