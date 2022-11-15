@@ -23,6 +23,8 @@ format:
     page-layout: full
     embed-resources: true
     standalone: true
+    include-in-header: 
+      file: js/leaflet_load.js
     output-file: index.html
 tbl-cap-location: bottom    
 crossref:
@@ -246,7 +248,7 @@ ojs_define(out_raw=out)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="228" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="230" source-offset="-0"}
 out = transpose(out_raw)
 viewof theDistrict = Inputs.select(out.map(d => d.district),
     {
@@ -288,7 +290,7 @@ out_small = out.filter(d => d.district == theDistrict)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="239" source-offset="0"}
+```{.js .cell-code code-fold="undefined" startFrom="241" source-offset="0"}
 Inputs.table(
   out_small,
   {
@@ -308,62 +310,9 @@ Inputs.table(
 :::
 :::
 
-
-
-<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-     integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
-     crossorigin=""></script>
-
-
-
-```{=html}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
-     integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
-     crossorigin=""/>
-<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-     integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
-     crossorigin=""></script>
-
-<style>
-  .leaflet-container {
-      font-family: "Avenir", "Helvetica Neue", Arial, Helvetica, sans-serif;
-      font-size: 12px;
-      font-size: 0.75rem;
-      line-height: 1.5;
-    }
-
-  .leaflet-tooltip-left:before {
-    right: 0;
-    margin-right: -12px;
-    border-left: 0px;
-    border-left-color: rgba(0, 0, 0, 0);
-}
-.leaflet-tooltip-right:before {
-    left: 0;
-    margin-left: -12px;
-    border-right: 0px;
-    border-right-color: rgba(0, 0, 0, 0);
-    }
-.leaflet-tooltip-own {
-    position: absolute;
-    padding: 4px;
-    background-color: rgba(0, 0, 0, 0);
-    border: 0px solid #000;
-    color: #000;
-    white-space: nowrap;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    pointer-events: none;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-}
-</style>     
-```
-
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="300" source-offset="0"}
+```{.js .cell-code code-fold="undefined" startFrom="255" source-offset="0"}
 nsw_shp_json = await FileAttachment("data/nsw_shp.json").json()
 ```
 
@@ -376,7 +325,7 @@ nsw_shp_json = await FileAttachment("data/nsw_shp.json").json()
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="305" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="260" source-offset="-0"}
 width = 800
 height = 650
 poa_shp_json = FileAttachment("data/nsw_poa_shp.json").json()
@@ -423,7 +372,7 @@ thePostcodes = out_small.map(d => d.postcode)
 
 :::{.cell}
 
-```{.js .cell-code code-fold="undefined" startFrom="313" source-offset="-0"}
+```{.js .cell-code code-fold="undefined" startFrom="268" source-offset="-0"}
 L = require('leaflet@1.9.2')
 
 map2 = {
