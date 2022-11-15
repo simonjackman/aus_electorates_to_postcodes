@@ -37,3 +37,8 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# ABS data files
+data/POA*
+data/gnaf_subset.fst
+/.quarto/
