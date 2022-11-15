@@ -102,7 +102,7 @@ We subset the G-NAF "core" file to NSW addresses, yielding 4,772,933 addresses, 
 
 # NSW state legislative districts
 
-We read the [MapInfo file](https://www.elections.nsw.gov.au/NSWEC/media/NSWEC/Maps/index-maps/StateElectoralDistrict2021_GDA2020.zip) supplied by the [NSW Electoral Commission](https://www.elections.nsw.gov.au/redistribution/Final-boundaries-and-names); this employs the `GDA2020` CRS and contain the boundaries for NSW's 93 electorate districts, to be used in the 2023 election (gazetted and proclaimed on 26 August 2021).
+We read the [MapInfo file](https://www.elections.nsw.gov.au/NSWEC/media/NSWEC/Maps/index-maps/StateElectoralDistrict2021_GDA2020.zip) supplied by the [NSW Electoral Commission](https://www.elections.nsw.gov.au/redistribution/Final-boundaries-and-names); this employs the `GDA2020` CRS and contain the boundaries for NSW's 93 state legislative districts, to be used in the 2023 election (gazetted and proclaimed on 26 August 2021).
 
 
 ::: {.cell}
@@ -143,7 +143,7 @@ poa_shp <- as(poa_shp, "sf") %>% st_make_valid()
 
 # Matching addresses to districts
 
-We now match the unique, geo-coded NSW addresses to districts, the real "work" of this exercise being done by the call to `sf::st_intersects` in the function `pfunc`; we group the data by `postcode` and use processing these batches of data in parallel via `furrr::future_map`.
+We now match the unique, geo-coded NSW addresses to districts, the real "work" of this exercise being done by the call to `sf::st_intersects` in the function `pfunc`; we group the data by `postcode` and use process these batches of data in parallel via `furrr::future_map`.
 
 
 ::: {.cell hash='postcode_nsw_legislative_district_cache/html/st-intersect-work_a5db038b0cf052ca5f20db22c0dbd5bc'}
