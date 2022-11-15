@@ -22,7 +22,7 @@ format:
     smooth-scroll: true
     page-layout: full
     ##embed-resources: true
-    standalone: true
+    ##standalone: true
 tbl-cap-location: bottom    
 crossref:
   tbl-title: Table
