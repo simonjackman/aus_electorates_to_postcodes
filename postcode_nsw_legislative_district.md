@@ -21,7 +21,7 @@ format:
     code-fold: true
     smooth-scroll: true
     page-layout: full
-    embed-resources: true
+    ##embed-resources: true
     standalone: true
 tbl-cap-location: bottom    
 crossref:
