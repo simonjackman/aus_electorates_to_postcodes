@@ -73,7 +73,8 @@ For making maps, we use the (very good) approximations to [postcode geographies]
 -   Every GNAF address in NSW is geocoded using [GDA94](https://epsg.io/4939) or [GDA 2020 CRS](https://epsg.io/7844).
 -   Locate each geo-coded NSW address from G-NAF in a NSW legislative district, using functions in the [`sf` R package](https://journal.r-project.org/archive/2018/RJ-2018-009/RJ-2018-009.pdf).
 -   For each postcode, compute and report count and what proportion of its geo-coded addresses lie in each district.
--   Use [`leaflet`](https://leafletjs.com "https://leafletjs.com") to build a mapping/visualization application.
+-   Use [`leaflet`](https://leafletjs.com "https://leafletjs.com") to build a JS mapping/visualization application.
+- [`quarto`](https://quarto.org) assembles this document and the web application, in turn utilising (`Observable JS`)[https://observablehq.com/@observablehq/observables-not-javascript] for table building and the call to `leaflet` (@sec-interactive). 
 
 # Read G-NAF
 
@@ -221,7 +222,7 @@ rm(nsw_addresses)
 ojs_define(out_raw=out)
 ```
 
-# Linked table and map
+# Linked table and map {#sec-interactive}
 
 ```{ojs}
 out = transpose(out_raw)
@@ -401,5 +402,5 @@ map2 = {
 
 ```{r}
 #| eval: false
-write.csv(out, file = here("aux_data/nsw/district_postcode_counts.csv"))
+write.csv(out, file = here("aux_data/nsw/district_postcode_counts.csv"),row.names = FALSE)
 ```
